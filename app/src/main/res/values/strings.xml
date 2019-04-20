@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Talk</string>
+    <string name="regNameHint">Full Name</string>
+    <string name="regEmailHint">Email</string>
+    <string name="regPassHint">Password</string>
+    <string name="regPassConfirmHint">Confirm Password</string>
+    <string name="login_button_text">Log In</string>
+</resources>

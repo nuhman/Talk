@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "588716739517",
+    "firebase_url": "https://talkblog7.firebaseio.com",
+    "project_id": "talkblog7",
+    "storage_bucket": "talkblog7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:588716739517:android:16049b005d3f916c",
+        "android_client_info": {
+          "package_name": "com.example.talk"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "588716739517-8rcinnkdulbnkkmdng0og33r3ucatr6n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCOcIWijRA_2ZRwCSCr8pnUZhJY9dbE0Qk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "588716739517-8rcinnkdulbnkkmdng0og33r3ucatr6n.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
