@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -20,7 +21,8 @@ import com.google.firebase.auth.FirebaseUser;
 public class LoginActivity extends AppCompatActivity {
 
     private EditText loginEmail, loginPass;
-    private Button loginButton;
+    private ImageView loginPhoto;
+    private Button loginButton, loginSignupButton;
     private ProgressBar loginProgressBar;
     private FirebaseAuth firebaseAuth;
     private Intent homeIntent;
@@ -32,10 +34,21 @@ public class LoginActivity extends AppCompatActivity {
 
         loginEmail = findViewById(R.id.loginEmail);
         loginButton = findViewById(R.id.loginButton);
+        loginSignupButton = findViewById(R.id.loginSignupButton);
         loginPass = findViewById(R.id.loginPass);
         loginProgressBar = findViewById(R.id.loginProgressBar);
+        loginPhoto = findViewById(R.id.loginImgUser);
         firebaseAuth = FirebaseAuth.getInstance();
         homeIntent = new Intent(this, HomeActivity.class);
+
+        loginSignupButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent registerIntent = new Intent(getApplicationContext(), RegisterActivity.class);
+                startActivity(registerIntent);
+                //finish();
+            }
+        });
 
         loginProgressBar.setVisibility(View.INVISIBLE);
         loginButton.setOnClickListener(new View.OnClickListener() {
