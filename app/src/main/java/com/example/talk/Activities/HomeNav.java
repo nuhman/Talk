@@ -10,6 +10,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -34,9 +35,17 @@ import com.bumptech.glide.Glide;
 import com.example.talk.Fragments.HomeFragment;
 import com.example.talk.Fragments.ProfileFragment;
 import com.example.talk.Fragments.SettingsFragment;
+import com.example.talk.Modals.Post;
 import com.example.talk.R;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 public class HomeNav extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -170,6 +179,37 @@ public class HomeNav extends AppCompatActivity
                 PopupAddBtnImage.setVisibility(View.INVISIBLE);
                 if(validateFields()) {
 
+                    if(pickedImageUri == null) {
+                        pickedImageUri = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE +
+                                "://" + getResources().getResourcePackageName(R.drawable.post_default)
+                                + '/' + getResources().getResourceTypeName(R.drawable.post_default) + '/' + getResources().getResourceEntryName(R.drawable.post_default) );
+                        // = Uri.parse("android.resource://com.example.talk/drawable/R.drawable.userphoto");
+                        popupPostImage.setImageURI(pickedImageUri);
+                    }
+
+                    StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("blog_images");
+                    final StorageReference imageFilePath = storageReference.child(pickedImageUri.getLastPathSegment());
+                    imageFilePath.putFile(pickedImageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            imageFilePath.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
+                                    String imageDownloadLink = uri.toString();
+                                    Post post = new Post(currentUser.getUid(), popupTitle.getText().toString(), popupDesc.getText().toString(), imageDownloadLink, currentUser.getPhotoUrl().toString());
+                                    addPost(post);
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    showMessage(e.getMessage());
+                                    popupProgressBar.setVisibility(View.INVISIBLE);
+                                    PopupAddBtnImage.setVisibility(View.VISIBLE);
+                                }
+                            });
+                        }
+                    });
+
                 } else {
                     showMessage("Please fill out all fields!");
                     popupProgressBar.setVisibility(View.INVISIBLE);
@@ -180,14 +220,28 @@ public class HomeNav extends AppCompatActivity
 
     }
 
+    private void addPost(Post post) {
+
+        FirebaseDatabase db = FirebaseDatabase.getInstance();
+        DatabaseReference dbRef = db.getReference("posts").push();
+
+        String key = dbRef.getKey();
+        post.setPostKey(key);
+
+        dbRef.setValue(post).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                showMessage("Post added successfully!");
+                popupProgressBar.setVisibility(View.INVISIBLE);
+                PopupAddBtnImage.setVisibility(View.VISIBLE);
+                popupAddPost.dismiss();
+            }
+        });
+
+    }
+
     private boolean validateFields() {
-        if(pickedImageUri == null) {
-            pickedImageUri = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE +
-                    "://" + getResources().getResourcePackageName(R.drawable.post_default)
-                    + '/' + getResources().getResourceTypeName(R.drawable.post_default) + '/' + getResources().getResourceEntryName(R.drawable.post_default) );
-            // = Uri.parse("android.resource://com.example.talk/drawable/R.drawable.userphoto");
-            popupPostImage.setImageURI(pickedImageUri);
-        }
+
         if(!(popupTitle.getText().toString().isEmpty()) &&  !(popupDesc.getText().toString().isEmpty())) {
             return true;
         }
