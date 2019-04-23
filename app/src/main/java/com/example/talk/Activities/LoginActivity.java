@@ -39,7 +39,7 @@ public class LoginActivity extends AppCompatActivity {
         loginProgressBar = findViewById(R.id.loginProgressBar);
         loginPhoto = findViewById(R.id.loginImgUser);
         firebaseAuth = FirebaseAuth.getInstance();
-        homeIntent = new Intent(this, HomeActivity.class);
+        homeIntent = new Intent(this, HomeNav.class);
 
         loginSignupButton.setOnClickListener(new View.OnClickListener() {
             @Override

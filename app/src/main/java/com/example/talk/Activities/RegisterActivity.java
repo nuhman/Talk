@@ -153,7 +153,7 @@ public class RegisterActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(Uri uri) {
                         UserProfileChangeRequest profileUpdate = new UserProfileChangeRequest.Builder()
-                                .setDisplayName(name).setPhotoUri(finalPickedImageUri).build();
+                                .setDisplayName(name).setPhotoUri(uri).build();
 
                         currentUser.updateProfile(profileUpdate)
                                 .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -172,7 +172,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void updateUi() {
-        Intent homeActivity = new Intent(getApplicationContext(), HomeActivity.class);
+        Intent homeActivity = new Intent(getApplicationContext(), HomeNav.class);
         startActivity(homeActivity);
         finish();
     }
