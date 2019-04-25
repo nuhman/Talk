@@ -87,6 +87,7 @@ public class HomeFragment extends Fragment {
         View fragmentView = inflater.inflate(R.layout.fragment_home, container, false);
         postRecyclerView = fragmentView.findViewById(R.id.post_recycler_view);
         postRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        postRecyclerView.setHasFixedSize(true);
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference("posts");
         return fragmentView;

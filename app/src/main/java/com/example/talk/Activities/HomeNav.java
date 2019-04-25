@@ -96,6 +96,10 @@ public class HomeNav extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         updateHeaderInfo();
+
+        // set home fragment to default
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
+
     }
 
     private void handlePopupImageUploadClick() {
