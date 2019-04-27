@@ -200,7 +200,7 @@ public class HomeNav extends AppCompatActivity
                                 @Override
                                 public void onSuccess(Uri uri) {
                                     String imageDownloadLink = uri.toString();
-                                    Post post = new Post(currentUser.getUid(), popupTitle.getText().toString(), popupDesc.getText().toString(), imageDownloadLink, currentUser.getPhotoUrl().toString());
+                                    Post post = new Post(currentUser.getUid(), currentUser.getDisplayName(), popupTitle.getText().toString(), popupDesc.getText().toString(), imageDownloadLink, currentUser.getPhotoUrl().toString());
                                     addPost(post);
                                 }
                             }).addOnFailureListener(new OnFailureListener() {

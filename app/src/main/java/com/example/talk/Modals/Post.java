@@ -4,11 +4,12 @@ import com.google.firebase.database.ServerValue;
 
 public class Post {
 
-    private String postKey, id, title, desc, pic, userPhoto;
+    private String postKey, id, title, desc, pic, userPhoto, author;
     private Object timeStamp;
 
-    public Post(String id, String title, String desc, String pic, String userPhoto) {
+    public Post(String id, String author, String title, String desc, String pic, String userPhoto) {
         this.id = id;
+        this.author = author;
         this.title = title;
         this.desc = desc;
         this.pic = pic;
@@ -31,6 +32,8 @@ public class Post {
     public String getTitle() {
         return title;
     }
+
+    public String getAuthor() { return author; }
 
     public String getDesc() {
         return desc;
@@ -55,6 +58,8 @@ public class Post {
     public void setId(String id) {
         this.id = id;
     }
+
+    public void setAuthor(String author) { this.author = author; }
 
     public void setTitle(String title) {
         this.title = title;

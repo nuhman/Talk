@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:isScrollContainer="true"
     tools:context=".Activities.PostDetailActivity"
     android:background="#fff">
 
@@ -58,17 +59,13 @@
 
         <TextView
             android:id="@+id/post_detail_date_name"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginLeft="16dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginBottom="8dp"
             android:layout_marginTop="8dp"
             android:text="19 Jan 2018 | Jack Noman"
             android:textSize="12sp"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/view3" />
 
@@ -90,33 +87,32 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/post_detail_date_name" />
 
-        <ImageView
-            android:id="@+id/post_detail_add_comment_profile_photo"
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/post_detail_add_comment_user_profile_photo"
             android:layout_width="36dp"
             android:layout_height="36dp"
             android:layout_marginStart="24dp"
             android:layout_marginLeft="24dp"
             android:layout_marginTop="24dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/post_detail_desc"
             tools:srcCompat="@tools:sample/avatars" />
 
         <EditText
             android:id="@+id/post_detail_add_comment_edittext"
+            android:imeOptions="flagNoFullscreen"
             android:background="@drawable/editext_button_style_rounded"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginLeft="16dp"
             android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
             android:ems="10"
             android:inputType="textPersonName"
             android:hint="@string/add_comment"
-            app:layout_constraintBottom_toBottomOf="@+id/post_detail_add_comment_profile_photo"
-            app:layout_constraintStart_toEndOf="@+id/post_detail_add_comment_profile_photo"
-            app:layout_constraintTop_toTopOf="@+id/post_detail_add_comment_profile_photo" />
+            app:layout_constraintBottom_toBottomOf="@+id/post_detail_add_comment_user_profile_photo"
+            app:layout_constraintStart_toEndOf="@+id/post_detail_add_comment_user_profile_photo"
+            app:layout_constraintTop_toTopOf="@+id/post_detail_add_comment_user_profile_photo" />
 
         <Button
             android:id="@+id/post_detail_add_comment_btn"
@@ -134,6 +130,28 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/post_detail_add_comment_edittext"
             app:layout_constraintTop_toTopOf="@+id/post_detail_add_comment_edittext" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/post_detail_user_image"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            app:layout_constraintBottom_toBottomOf="@+id/post_detail_date_name"
+            app:layout_constraintStart_toEndOf="@+id/post_detail_date_name"
+            app:layout_constraintTop_toTopOf="@+id/post_detail_date_name"
+            app:layout_constraintVertical_bias="1.0"
+            tools:srcCompat="@tools:sample/avatars" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/post_detail_comments_rv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/post_detail_add_comment_btn" />
+
 
     </android.support.constraint.ConstraintLayout>
 

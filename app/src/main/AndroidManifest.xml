@@ -13,7 +13,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activities.PostDetailActivity"></activity>
+        <activity
+            android:name=".Activities.PostDetailActivity"
+            android:windowSoftInputMode="adjustResize|stateHidden">
+
+        </activity>
         <activity
             android:name=".Activities.HomeNav"
             android:label="@string/title_activity_home_nav"

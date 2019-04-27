@@ -1,6 +1,7 @@
 package com.example.talk.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.talk.Activities.PostDetailActivity;
 import com.example.talk.Modals.Post;
 import com.example.talk.R;
 
@@ -36,7 +38,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder>{
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int i) {
         myViewHolder.title.setText(mData.get(i).getTitle());
-        myViewHolder.author.setText(mData.get(i).getTitle());
+        myViewHolder.author.setText(mData.get(i).getAuthor());
         Glide.with(mContext).load(mData.get(i).getPic()).into(myViewHolder.bg);
         Glide.with(mContext).load(mData.get(i).getUserPhoto()).into(myViewHolder.profilePhoto);
     }
@@ -58,6 +60,26 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder>{
             author = itemView.findViewById(R.id.row_post_author);
             bg = itemView.findViewById(R.id.row_post_bg);
             profilePhoto = itemView.findViewById(R.id.row_post_profile_photo);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent postDetailActivityIntent = new Intent(mContext, PostDetailActivity.class);
+                    int pos = getAdapterPosition();
+
+                    postDetailActivityIntent.putExtra("i_title", mData.get(pos).getTitle());
+                    postDetailActivityIntent.putExtra("i_author", mData.get(pos).getAuthor());
+                    postDetailActivityIntent.putExtra("i_postImg", mData.get(pos).getPic());
+                    postDetailActivityIntent.putExtra("i_desc", mData.get(pos).getDesc());
+                    postDetailActivityIntent.putExtra("i_key", mData.get(pos).getPostKey());
+                    postDetailActivityIntent.putExtra("i_userPhoto", mData.get(pos).getUserPhoto());
+                    long timestamp = (long) mData.get(pos).getTimeStamp();
+                    postDetailActivityIntent.putExtra("i_date", timestamp);
+
+                    mContext.startActivity(postDetailActivityIntent);
+                }
+            });
+
         }
     }
 }
