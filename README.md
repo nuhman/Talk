@@ -1,5 +1,5 @@
 # Talk
-### community blog application in android
+### community blog android application  
   
 Following the tutorial series by [Aws Rh](https://www.youtube.com/playlist?list=PLDKucuCBdlJacuFlSOpy3wi30ezUKzH2v).  
   
